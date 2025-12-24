@@ -235,9 +235,11 @@
 
   appearance: none;
   -webkit-appearance: none;
-}
+
 }
 </style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050505">
 </head>
 
 <body>
@@ -802,6 +804,11 @@ exportBtn.onclick = ()=>{
   resizeCanvas();
   draw();
 })();
+  if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js");
+  });
+}
 </script>
 
 </body>

@@ -236,6 +236,13 @@
   appearance: none;
   -webkit-appearance: none;
 
+  /* spacer */
+  .group-gap {
+  width: 10px;
+  height: 1px;
+}
+
+
 }
 </style>
 <link rel="manifest" href="manifest.json">
@@ -253,6 +260,7 @@
 <div id="topbar">
   <button id="loadImgBtn" class="btn" title="Load image">🖼</button>
   <button id="clearImgBtn" class="btn danger" title="Clear image">Clear</button>
+<span class="group-gap"></span>
 
   <button id="toggleCam" class="btn" title="Toggle camera">👁</button>
   <div id="bgPalette">
@@ -261,12 +269,14 @@
   <button data-bg="#000000" title="Black"></button>
 </div>
   <button id="switchBtn" class="btn" title="Switch camera">⇄</button>
+<span class="group-gap"></span>
 
 
   <button id="frameFab" class="btn primary" title="Frame preset">1:1</button>
   <button id="customRatioBtn" class="btn" title="Custom ratio">Custom…</button>
+<span class="group-gap"></span>
 
-  <button id="deleteBtn" class="btn danger" title="Delete selection">🗑</button>
+  
 
   <button id="exportBtn" class="btn primary" title="Export frame">📸</button>
 
@@ -279,6 +289,8 @@
   <button id="vertBtn" class="btn" title="Vertical line">│</button>
   <button id="horiBtn" class="btn" title="Horizontal line">—</button>
   <button id="slantBtn" class="btn" title="Slant line">/</button>
+  <span class="group-gap"></span>
+  <button id="deleteBtn" class="btn danger" title="Delete selection">🗑</button>
 </div>
 
 <!-- CUSTOM RATIO MODAL -->

@@ -334,6 +334,9 @@
 </div>
 
 <script>
+  
+  document.addEventListener("DOMContentLoaded", () => {
+
 const video = document.getElementById("video");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -841,12 +844,16 @@ exportBtn.onclick = ()=>{
   resizeCanvas();
   draw();
 })();
-  //if ("serviceWorker" in navigator) {
-//  window.addEventListener("load", () => {
-  //  navigator.serviceWorker.register("./sw.js");
-//  });
-// }
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js");
+  });
+}
+
+});
 </script>
 
 </body>
 </html>
+

@@ -237,6 +237,46 @@
   -webkit-appearance: none;
 
 }
+  /* ===== HELP AFFORDANCE (SAFE LAYER) ===== */
+
+#helpHint {
+  position: fixed;
+  left: 14px;
+  bottom: 18px;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.28);
+  z-index: 80;
+  user-select: none;
+  touch-action: none;
+}
+
+#helpHint:active {
+  color: rgba(255,255,255,0.5);
+}
+
+.help-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 79;
+  pointer-events: none;
+}
+
+.help-label {
+  position: absolute;
+  padding: 6px 9px;
+  font-size: 11px;
+  border-radius: 9px;
+  background: rgba(12,12,12,0.88);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  white-space: nowrap;
+  transform: translate(-50%, -120%);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.55);
+}
+
 </style>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#050505">
@@ -295,7 +335,8 @@
     <button id="crClose" class="modalBtn">Close</button>
   </div>
 </div>
-
+<div id="helpOverlay" class="help-overlay" hidden></div>
+<div id="helpHint">?</div>
 <script>
 const video = document.getElementById("video");
 const canvas = document.getElementById("canvas");
@@ -809,7 +850,74 @@ exportBtn.onclick = ()=>{
     navigator.serviceWorker.register("./sw.js");
   });
 }
+  /* ===== HELP LAYER LOGIC (ISOLATED) ===== */
+
+const helpHint = document.getElementById("helpHint");
+const helpOverlay = document.getElementById("helpOverlay");
+
+let helpTimer = null;
+let helpActive = false;
+const HOLD_MS = 420;
+
+/* What gets labeled */
+const helpTargets = [
+  { el: loadImgBtn, label: "Import image" },
+  { el: clearImgBtn, label: "Clear image" },
+  { el: toggleCam, label: "Camera / background" },
+  { el: switchBtn, label: "Switch camera" },
+  { el: frameFab, label: "Frame ratios" },
+  { el: customRatioBtn, label: "Custom frame" },
+  { el: exportBtn, label: "Export" },
+  { el: dotBtn, label: "Dot guide" },
+  { el: vertBtn, label: "Vertical guide" },
+  { el: horiBtn, label: "Horizontal guide" },
+  { el: slantBtn, label: "Slanted guide" },
+  { el: deleteBtn, label: "Delete selection" }
+];
+
+function showHelp(){
+  if(helpActive) return;
+  helpActive = true;
+  helpOverlay.hidden = false;
+  helpOverlay.innerHTML = "";
+
+  helpTargets.forEach(t=>{
+    if(!t.el) return;
+    const r = t.el.getBoundingClientRect();
+    const tag = document.createElement("div");
+    tag.className = "help-label";
+    tag.textContent = t.label;
+    tag.style.left = (r.left + r.width/2) + "px";
+    tag.style.top = r.top + "px";
+    helpOverlay.appendChild(tag);
+  });
+}
+
+function hideHelp(){
+  clearTimeout(helpTimer);
+  helpTimer = null;
+  helpActive = false;
+  helpOverlay.hidden = true;
+  helpOverlay.innerHTML = "";
+}
+
+/* Press & hold ONLY on ? */
+helpHint.addEventListener("pointerdown", e=>{
+  e.stopPropagation();
+  helpTimer = setTimeout(showHelp, HOLD_MS);
+});
+
+helpHint.addEventListener("pointerup", hideHelp);
+helpHint.addEventListener("pointerleave", hideHelp);
+helpHint.addEventListener("pointercancel", hideHelp);
+
+/* Auto-hide help affordance when image is loaded */
+imgInput.addEventListener("change", ()=>{
+  helpHint.style.display = "none";
+});
+
 </script>
+
 
 </body>
 </html>

@@ -67,42 +67,43 @@
     bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 6px 8px;
-    border-radius: 14px;
+    padding: 12px 16px;        /* ⬆ bar height + breathing room */
+    border-radius: 18px;       /* slightly rounder to match scale */
     background: var(--panel);
     border: 1px solid var(--border);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     z-index: 50;
     display: flex;
-    gap: 6px;
+    gap: 10px;                 /* clearer separation between tools */
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-  }
+}
 
   /* BUTTONS */
   .btn {
-    appearance: none;
-    background: rgba(255,255,255,0.06);
-    color: var(--text);
-    border: 1px solid var(--border);
-    padding: 7px 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    user-select: none;
-    font-size: 12px;
-    line-height: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 36px;
-    transition:
-      background 0.15s ease,
-      border-color 0.15s ease,
-      transform 0.1s ease,
-      box-shadow 0.15s ease;
-  }
+  appearance: none;
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 7px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.15s ease;
+}
+
 
   .btn:hover {
     background: rgba(255,255,255,0.12);
@@ -232,9 +233,17 @@
   border-radius: 5px;
   border: 1px solid var(--border-strong);
   cursor: pointer;
-
   appearance: none;
   -webkit-appearance: none;
+}
+  /* bottom buttons biggers */
+  #bottombar .btn {
+  padding: 11px 15px;   /* makes buttons bigger */
+  font-size: 13.5px;    /* slightly more legible */
+  min-width: 44px;      /* better tap target */
+  border-radius: 12px;  /* matches increased size */
+}
+
 
   /* spacer */
   .group-gap {
@@ -242,8 +251,6 @@
   height: 1px;
 }
 
-
-}
 </style>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#050505">

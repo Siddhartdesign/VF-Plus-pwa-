@@ -41,25 +41,25 @@
     object-fit: cover;
   }
 
-  /* TOP BAR – full width, subtle glass */
-  #topbar {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    padding: 6px;
-    border-radius: 14px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    z-index: 50;
-    display: flex;
-    gap: 6px;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-  }
+  /* TOP BAR – layout only (no glass) */
+#topbar {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 50;
+
+  display: flex;
+  gap: 10px;              /* space between pills */
+  flex-wrap: nowrap;     /* single row */
+  justify-content: center;
+  align-items: center;
+
+  background: none;      /* moved to .pill */
+  border: none;
+  padding: 0;
+}
+
 
   /* BOTTOM BAR – centered cluster */
  #bottombar {
@@ -248,6 +248,17 @@
   border-radius: 12px;  /* matches increased size */
 }
 
+/* PILL GROUP */
+.pill {
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
 
   /* spacer */
   .group-gap {
@@ -269,30 +280,27 @@
 
 <!-- TOP BAR -->
 <div id="topbar">
-  <button id="loadImgBtn" class="btn" title="Load image">🖼</button>
-  <button id="clearImgBtn" class="btn danger" title="Clear image">Clear</button>
-<span class="group-gap"></span>
 
-  <button id="toggleCam" class="btn" title="Toggle camera">👁</button>
-  <div id="bgPalette">
-  <button data-bg="#f3e9d2" title="Warm paper"></button>
-  <button data-bg="#ffffff" title="White"></button>
-  <button data-bg="#000000" title="Black"></button>
-</div>
-  <button id="switchBtn" class="btn" title="Switch camera">⇄</button>
-<span class="group-gap"></span>
+  <div class="pill">
+    <button id="loadImgBtn" class="btn" title="Load image">🖼</button>
+    <button id="clearImgBtn" class="btn danger" title="Clear image">Clear</button>
+  </div>
 
+  <div class="pill">
+    <button id="toggleCam" class="btn" title="Toggle camera">👁</button>
+    <button id="switchBtn" class="btn" title="Switch camera">⇄</button>
+  </div>
 
-  <button id="frameFab" class="btn primary" title="Frame preset">1:1</button>
-  <button id="customRatioBtn" class="btn" title="Custom ratio">Custom</button>
-<span class="group-gap"></span>
-
-  
-
-  <button id="exportBtn" class="btn primary" title="Export frame">📸</button>
+  <div class="pill">
+    <button id="frameFab" class="btn primary" title="Frame preset">1:1</button>
+    <button id="customRatioBtn" class="btn" title="Custom ratio">Custom</button>
+    <button id="exportBtn" class="btn primary" title="Export frame">📸</button>
+  </div>
 
   <input id="imgInput" type="file" accept="image/*">
+
 </div>
+
 
 <!-- BOTTOM BAR -->
 <div id="bottombar">
